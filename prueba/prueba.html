@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hola Mundo</title>
+    </head>
+    <body>
+        <h1 id="titulo">JavaScript</h1>
+        <script>
+            let nombre = prompt("Como te llamas? ")
+            console.log("Te llamas: " + nombre)
+
+            document.getElementById("titulo").innerHTML = nombre
+            
+            let titulo = document.getElementById("titulo").innerHTML
+
+            console.log("El ID 'titulo' tiene el valor: " + titulo)
+        </script>
+    </body>
+</html>
