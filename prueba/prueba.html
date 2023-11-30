@@ -7,13 +7,16 @@
     </head>
     <body>
         <h1 id="titulo">JavaScript</h1>
+
         <script>
+            const h1Titulo = document.querySelector("h1")
+
             let nombre = prompt("Como te llamas? ")
             console.log("Te llamas: " + nombre)
 
-            document.getElementById("titulo").innerHTML = nombre
+            h1Titulo.textContent = nombre
             
-            let titulo = document.getElementById("titulo").innerHTML
+            let titulo = document.getElementById("titulo")
 
             console.log("El ID 'titulo' tiene el valor: " + titulo)
         </script>
