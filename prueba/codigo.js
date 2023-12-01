@@ -1,18 +1,15 @@
-let tituloPrincipal = document.getElementById("titulo_principal");
-let titulosArticulos = document.getElementsByClassName("titulo_articulo");
-let textosArticulos = document.getElementsByClassName("texto_articulo");
+const divPrincipal = document.getElementById("contenedor");
 
-let nombreUsuario = prompt("Introduce tu nombre: ");
+let counter = 1;
 
-tituloPrincipal.textContent = nombreUsuario;
+divPrincipal.className = "divPrincipal";
 
-let userDecisionColorText = confirm("Quieres pintar el texto de color rojo?");
-let userDecisionBGColor = confirm ("Quieres pintar el fondo de color verde?");
-
-if (userDecisionColorText) {
-    tituloPrincipal.style.color = "red";
+for (let i = 0; i < 9; i++) {
+    let divTecla = document.createElement("div");
+    divTecla.className = "divTecla";
+    divTecla.textContent = counter;
+    divPrincipal.appendChild(divTecla);
+    counter++;
 };
 
-if (userDecisionBGColor) {
-    tituloPrincipal.style.backgroundColor = "green";
-};
+console.log("5" == 5)
