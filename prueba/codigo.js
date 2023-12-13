@@ -1,32 +1,29 @@
-const divPrincipal = document.getElementById("contenedor");
-const body = document.getElementById("body");
+const divPrincipal = document.querySelector('#contenedor');
 
-let counter = 1;
-
-let saltoLinea = document.createElement("br");
-let userNumberCounter;
-
-userNumberCounter = prompt("Escribe la cantidad de teclas que quieres: ");
+let userNumberCounter = prompt("Escribe la cantidad de teclas que quieres: ");
+let columnas = prompt("Escribe las columnas que quieres: ");
 
 divPrincipal.className = "divPrincipal";
 
-for (let i = 0; i < userNumberCounter; i++) {
-    let divTecla = document.createElement("divTecla");
-    divTecla.className = "divTecla";
-    divTecla.textContent = counter;
-    divPrincipal.appendChild(divTecla);
-    counter++;
-}
+divPrincipal.style.width = (100 * columnas) + (5 * columnas) + "px";
 
-if (userNumberCounter > 0) {
-    let j = 0;
-    counter = 1;
-    while (j < userNumberCounter) {
+if (userNumberCounter <= 30) {
+    for (let i = 0; i <= userNumberCounter; i++) {
         let divTecla = document.createElement("divTecla");
         divTecla.className = "divTecla";
-        divTecla.textContent = counter;
+        divTecla.textContent = i;
+
+        if (i % 3 == 0 ) {
+            divTecla.style.backgroundColor = "yellow";
+        }
+        else if (i % 2 == 0 && i != 0) {
+            divTecla.style.backgroundColor = "blue";
+        }
+
         divPrincipal.appendChild(divTecla);
-        counter++;
-        j++;
     }
+}
+
+else {
+    alert("Número demasiado grande, bobo.");
 }
