@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+#contenedor {
+    display: flex;
+    width: 100%;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.divTecla {
+    font-size: 60px;
+    color: white;
+    background-color: rgb(0,130,255);
+    width: 100px;
+    height: 100px;
+    padding-left: 5px;
+}
+
+.divLetra {
+    font-size: 60px;
+    color: white;
+    background-color: rgb(218, 167, 0);
+    width: 100px;
+    height: 100px;
+    padding-left: 5px;
+}
+
+#alfabeto {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 5px;
+    gap: 5px;
+    width: 60%;
+}
+
+#teclado {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin: 5px;
+    gap: 5px;
+    width: 40%;
+}
