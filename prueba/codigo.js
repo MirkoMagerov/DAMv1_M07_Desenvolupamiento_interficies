@@ -1,31 +1,38 @@
+const ASCII_A = 65;
+const ASCII_E = 69;
+const ASCII_I = 73;
+const ASCII_O = 79;
+const ASCII_U = 85;
+const ASCII_Z = 90;
+
 function init() {
-    const divAlfabeto = document.querySelector('#alfabeto');
-    const divTeclado = document.querySelector('#teclado');
+    const DIV_ALFABETO = document.querySelector('#alfabeto');
+    const DIV_TECLADO = document.querySelector('#dentro_teclado');
 
     let userNumberCounter = prompt("Escribe la cantidad de teclas que quieres: ");
     let columnas = prompt("Escribe las columnas que quieres: ");
 
-    divTeclado.style.width = calculateTotalWidth(100, 5, columnas);
+    DIV_TECLADO.style.width = calculateTotalWidth(100, 8, columnas);
 
-    createAlphabet(divAlfabeto, 25);
+    createAlphabet(DIV_ALFABETO);
 
-    createKeyboard(divTeclado, userNumberCounter);
+    createKeyboard(DIV_TECLADO, userNumberCounter);
 }
 
 function calculateTotalWidth(keyWidth, margin, columns) {
     return (keyWidth * columns) + (margin * columns) + "px";
 }
 
-function createKeyboard(divTeclado, numberOfKeys) {
+function createKeyboard(DIV_TECLADO, numberOfKeys) {
     if (numberOfKeys <= 30) {
         for (let i = 0; i <= numberOfKeys; i++) {
             if (i != 0) {
                 let tecla = createKey(i);
-                divTeclado.append(tecla);
+                DIV_TECLADO.append(tecla);
             }
         }
         let tecla = createKey(0);
-        divTeclado.append(tecla);
+        DIV_TECLADO.append(tecla);
     }
     else {
         alert("Número demasiado grande, bobo.");
@@ -47,29 +54,28 @@ function createKey(index) {
     }
     else {
         divTecla.style.width = "100%";
-        divTecla.style.paddingRight = "25px";
+        divTecla.style.paddingLeft = "15px";
     }
     return divTecla;
 }
 
-function createAlphabet(divAlfabeto, numberOfLetters) {
-    for (let i = 0; i <= numberOfLetters; i++) {
-        const ascii_converter = 65;
-        let ascii_code = i + ascii_converter;
+function createAlphabet(DIV_ALFABETO) {
+    for (let i = 65; i <= 90; i++) {
 
-        if (ascii_code == 79) {
-            let letraÑ = createLetter(ascii_code, 'Ñ');
-            divAlfabeto.append(letraÑ)
+        if (i == 79) {
+            let letraÑ = createLetter(i, 'Ñ');
+            DIV_ALFABETO.append(letraÑ)
         }
 
-        let letra = createLetter(ascii_code);
-        divAlfabeto.append(letra);
+        let letra = createLetter(i);
+        DIV_ALFABETO.append(letra);
     }
 }
 
 function createLetter(ascii_code, letter = null) {
     let divLetra = document.createElement("div");
     divLetra.className = "divLetra";
+    
     if (letter) {
         divLetra.textContent = letter;
     }

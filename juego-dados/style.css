@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+#juego {
+    display: flex;
+    justify-content: center;
+    margin-top: 50%;
+    align-items: center;
+}
+
+.dadoJugador {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    color: white;
+    font-size: 100px;
+    text-align: center;
+}
+
+.dadoOrdenador {
+    width: 150px;
+    height: 150px;
+    background-color: violet;
+    color: white;
+    font-size: 100px;
+    text-align: center;
+}

@@ -7,6 +7,8 @@
     width: 100%;
     flex-flow: row nowrap;
     justify-content: space-around;
+    align-items: flex-start;
+    gap: 30px;
 }
 
 .divTecla {
@@ -16,6 +18,7 @@
     width: 100px;
     height: 100px;
     padding-left: 5px;
+    margin-bottom: 0px;
 }
 
 .divLetra {
@@ -25,6 +28,7 @@
     width: 100px;
     height: 100px;
     padding-left: 5px;
+    margin-bottom: 0px;
 }
 
 #alfabeto {
@@ -32,15 +36,21 @@
     flex-flow: row wrap;
     align-items: flex-start;
     margin: 5px;
-    gap: 5px;
-    width: 60%;
+    gap: 10px;
+    flex: 5;
 }
 
 #teclado {
     display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#dentro_teclado {
+    display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
     margin: 5px;
-    gap: 5px;
-    width: 40%;
+    gap: 10px;
+    flex: 3;
 }
