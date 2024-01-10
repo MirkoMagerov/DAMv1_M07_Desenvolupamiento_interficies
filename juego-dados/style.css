@@ -5,14 +5,14 @@
 #juego {
     display: flex;
     justify-content: center;
-    margin-top: 50%;
     align-items: center;
+    gap: 15px;
 }
 
 .dadoJugador {
     width: 150px;
     height: 150px;
-    background-color: blue;
+    background-color: green;
     color: white;
     font-size: 100px;
     text-align: center;
@@ -21,8 +21,18 @@
 .dadoOrdenador {
     width: 150px;
     height: 150px;
-    background-color: violet;
+    background-color: red;
     color: white;
     font-size: 100px;
     text-align: center;
+}
+
+#ganador {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+#winner {
+    font-size: 2.5em;
 }
