@@ -4,6 +4,8 @@ function Init() {
     let word = "";
 
     word = prompt().toLowerCase();
+
+    console.log(replaceFirstAndLastLetterOfString(word));
 }
 
 // EJ-1
@@ -41,5 +43,10 @@ function deleteIndexLetterFromString(word, indexNumber) {
 function replaceFirstAndLastLetterOfString(word) {
     // console.log(replaceFirstAndLastLetterOfString(word));
 
-    return (word[word.length-1] + word.substring(1, word.length-1) + word[0]);
+    if (word.length > 0) {
+        return (word[word.length-1] + word.substring(1, word.length-1) + word[0]);
+    }
+    else {
+        return "TIENES QUE PONER UNA PALABRA BOBO";
+    }
 }
