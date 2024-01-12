@@ -1,5 +1,5 @@
 function Init() {
-    
+
 }
 
 /* EX 1 */
@@ -60,4 +60,19 @@ function TimeToMyBirthday(date) {
     console.log(minutes);
     console.log(hours);
     console.log(days);
+}
+
+/* EX 4 */
+// SantJordi();
+
+function SantJordi() {
+    let año = 2024;
+
+    while (año < 2060) {
+        let fecha = new Date(año, 4, 23);
+        if (fecha.getDay() < 5) {
+            console.log(`${año} - ${fecha.getDay()}`);
+        }
+        año++;
+    }
 }
