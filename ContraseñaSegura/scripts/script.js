@@ -70,7 +70,7 @@ function hasLowercaseLetters(pass) {
     let lowercaseCounter = 0;
 
     for (let char of pass) {
-        if (char == char.toLowerCase()) {
+        if (char.match(/[a-zA-Z]/) && char == char.toLowerCase()) {
             lowercaseCounter++;
             if (lowercaseCounter == 2) {
                 return true;
@@ -115,19 +115,23 @@ function hasSpecialCharacters(pass) {
 
 // Check three equal characters
 function hasRepetitiveCharacters(pass) {
-    let actualChar = pass[0];
+    let actualChar = "";
     let equalLetterCounter = 0;
 
-    for (let i = 1; i < pass.length; i++) {
-        if (actualChar == pass[i]) {
-            equalLetterCounter++;
-            if (equalLetterCounter == 3) {
-                return true;
+    for (let i = 0; i < pass.length-1; i++) {
+        actualChar = pass[i];
+        if (equalLetterCounter < 3) {
+            for (let j = 1; j < pass.length; j++) {
+                if (equalLetterCounter < 3) {
+                    if (actualChar == pass[j]) {
+                        equalLetterCounter++;
+                    }
+                }
+                
             }
         }
         else {
-            actualChar = pass[i];
-            equalLetterCounter = 0;
+            return true;
         }
     }
     return false;
