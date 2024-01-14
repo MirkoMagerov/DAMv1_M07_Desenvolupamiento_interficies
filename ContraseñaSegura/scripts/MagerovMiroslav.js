@@ -1,4 +1,14 @@
 function init() {
+    const PASSWORD_INPUT = document.querySelector("#password");
+    const CHECK_BUTTON = document.querySelector("#check_button");
+    const TOGGLE_VISIBILITY_EYE = document.querySelector("#toggle_visibility_eye");
+
+    CHECK_BUTTON.addEventListener("click", () => checkPassword(PASSWORD_INPUT));
+    TOGGLE_VISIBILITY_EYE.addEventListener("click", () => togglePasswordVisibility(PASSWORD_INPUT, TOGGLE_VISIBILITY_EYE));
+}
+
+function checkPassword(PASSWORD_INPUT) {
+    const PASSWORD = PASSWORD_INPUT.value;
     const MIN_LENGTH = document.querySelector("#min_length");
     const MAX_LENGTH = document.querySelector("#max_length");
     const NUMBERS = document.querySelector("#numbers");
@@ -7,17 +17,7 @@ function init() {
     const WHITE_SPACES = document.querySelector("#white_spaces");
     const SPECIAL_CHARACTERS = document.querySelector("#special_characters");
     const REPETITIVE_CHARACTERS = document.querySelector("#repetitive_characters");
-    const CHECK_BUTTON = document.querySelector("#check_button");
-    const TOGGLE_VISIBILITY_EYE = document.querySelector("#toggle_visibility_eye");
-    const PASSWORD_INPUT = document.querySelector("#password");
 
-    CHECK_BUTTON.addEventListener("click", () => checkPassword(PASSWORD_INPUT, MIN_LENGTH, MAX_LENGTH, NUMBERS, LOWER_CASE, UPPER_CASE, WHITE_SPACES, SPECIAL_CHARACTERS, REPETITIVE_CHARACTERS));
-    TOGGLE_VISIBILITY_EYE.addEventListener("click", () => togglePasswordVisibility(PASSWORD_INPUT, TOGGLE_VISIBILITY_EYE));
-}
-
-function checkPassword(PASSWORD_INPUT, MIN_LENGTH, MAX_LENGTH, NUMBERS, LOWER_CASE, UPPER_CASE, WHITE_SPACES, SPECIAL_CHARACTERS, REPETITIVE_CHARACTERS) {
-    const PASSWORD = PASSWORD_INPUT.value;
-    
     checkMinLength(PASSWORD) ? matchReq(MIN_LENGTH) : notMatchReq(MIN_LENGTH);
     checkMaxLength(PASSWORD) ? matchReq(MAX_LENGTH) : notMatchReq(MAX_LENGTH);
     checkNumber(PASSWORD) ? matchReq(NUMBERS) : notMatchReq(NUMBERS);
