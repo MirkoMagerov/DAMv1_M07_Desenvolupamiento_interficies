@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="scripts/script.js"></script>
-    <title>Contraseña Segura</title>
-</head>
-<body onload="init()">
-    
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="scripts/script.js"></script>
+        <title>Contraseña Segura</title>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body onload="init()">
+        <section class="flex_row_wrap">
+            <article class="flex_column_wrap">
+                <h2>PASSWORD CHECKER</h2>
+                <img src="images/contrasena.png" alt="An image of a password security icon.">
+                <div id="password_container" class="flex_row_wrap">
+                    <input type="password" id="password" placeholder="Escribe la contraseña aquí">
+                    <img src="images/closed_eye.png" alt="An image of a closed eye." id="toggle_visibility_eye">
+                </div>
+                
+                <div id="div_requisitos">
+                    <ul id="requisitos">
+                        <li id="min_length">Debe contener mínimo 8 carácteres</li>
+                        <li id="max_length">Debe contener máximo 20 carácteres</li>
+                        <li id="numbers">Mínimo 1 dígito</li>
+                        <li id="lower_case">Debe contener mínimo 2 minúsculas</li>
+                        <li id="upper_case">Debe contener mínimo 1 mayúscula</li>
+                        <li id="white_spaces">No debe contener espacios en blanco</li>
+                        <li id="special_characters">Debe contener mínimo 3 carácteres especiales</li>
+                        <li id="repetitive_characters">No se debe de repetir el mismo carácter más de tres veces seguidas</li>
+                    </ul>
+                </div>
+                <button id="check_button">CHECK</button>
+            </article>
+        </section>
+    </body>
 </html>

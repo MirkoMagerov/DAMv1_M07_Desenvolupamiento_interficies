@@ -1,43 +1,41 @@
 function init() {
-    const GOOD_MIN_LENGTH = "La contraseña cumple con la longitud mínima requerida. ✅";
-    const BAD_MIN_LENGTH = "La contraseña no cumple con la longitud mínima requerida. ❌";
+    const MIN_LENGTH = document.querySelector("#min_length");
+    const MAX_LENGTH = document.querySelector("#max_length");
+    const NUMBERS = document.querySelector("#numbers");
+    const LOWER_CASE = document.querySelector("#lower_case");
+    const UPPER_CASE = document.querySelector("#upper_case");
+    const WHITE_SPACES = document.querySelector("#white_spaces");
+    const SPECIAL_CHARACTERS = document.querySelector("#special_characters");
+    const REPETITIVE_CHARACTERS = document.querySelector("#repetitive_characters");
+    const CHECK_BUTTON = document.querySelector("#check_button");
+    const TOGGLE_VISIBILITY_EYE = document.querySelector("#toggle_visibility_eye");
+    const PASSWORD_INPUT = document.querySelector("#password");
 
-    const GOOD_MAX_LENGTH = "La contraseña cumple con la longitud máxima permitida. ✅";
-    const BAD_MAX_LENGTH = "La contraseña excede la longitud máxima permitida. ❌";
-
-    const GOOD_NUMBERS = "La contraseña contiene con al menos un dígito. ✅";
-    const BAD_NUMBERS = "La contraseña no contiene ningún dígito. ❌";
-
-    const GOOD_LOWER_CASE = "La contraseña contiene al menos dos letras minúscula. ✅";
-    const BAD_LOWER_CASE = "La contraseña no contiene al menos dos letras minúsculas. ❌";
-
-    const GOOD_UPPER_CASE = "La contraseña contiene al menos una letra mayúscula. ✅";
-    const BAD_UPPER_CASE = "La contraseña no contiene letras mayúsculas. ❌";
-
-    const GOOD_WHITE_SPACES = "La contraseña no contiene espacios en blanco. ✅";
-    const BAD_WHITE_SPACES = "La contraseña no debe contener espacios en blanco. ❌";
-
-    const GOOD_SPECIAL_CHARACTERS = "La contraseña contiene al menos 3 carácteres especial. ✅";
-    const BAD_SPECIAL_CHARACTERS = "La contraseña no contiene carácteres especiales. ❌";
-
-    const GOOD_REPETITIVE_CHARACTERS = "La contraseña no contiene repeticiones consecutivas de caracteres. ✅";
-    const BAD_REPETITIVE_CHARACTERS = "La contraseña contiene repeticiones consecutivas de caracteres. ❌";
-
-    let password = getPass();
-    
-    console.log((checkMinLength(password)) ? GOOD_MIN_LENGTH : BAD_MIN_LENGTH);
-    console.log((checkMaxLength(password)) ? GOOD_MAX_LENGTH : BAD_MAX_LENGTH);
-    console.log((checkNumber(password)) ? GOOD_NUMBERS : BAD_NUMBERS);
-    console.log((hasLowercaseLetters(password)) ? GOOD_LOWER_CASE : BAD_LOWER_CASE ); 
-    console.log((hasUppercaseLetters(password)) ? GOOD_UPPER_CASE : BAD_UPPER_CASE); 
-    console.log((hasWhiteSpaces(password)) ? BAD_WHITE_SPACES : GOOD_WHITE_SPACES);
-    console.log((hasSpecialCharacters(password)) ? GOOD_SPECIAL_CHARACTERS : BAD_SPECIAL_CHARACTERS); 
-    console.log((hasRepetitiveCharacters(password)) ? BAD_REPETITIVE_CHARACTERS : GOOD_REPETITIVE_CHARACTERS);
+    CHECK_BUTTON.addEventListener("click", () => checkPassword(PASSWORD_INPUT, MIN_LENGTH, MAX_LENGTH, NUMBERS, LOWER_CASE, UPPER_CASE, WHITE_SPACES, SPECIAL_CHARACTERS, REPETITIVE_CHARACTERS));
+    TOGGLE_VISIBILITY_EYE.addEventListener("click", () => togglePasswordVisibility(PASSWORD_INPUT, TOGGLE_VISIBILITY_EYE));
 }
 
-function getPass() {
-    let pass = prompt("Escribe tu contraseña: ");
-    return pass;
+function checkPassword(PASSWORD_INPUT, MIN_LENGTH, MAX_LENGTH, NUMBERS, LOWER_CASE, UPPER_CASE, WHITE_SPACES, SPECIAL_CHARACTERS, REPETITIVE_CHARACTERS) {
+    const PASSWORD = PASSWORD_INPUT.value;
+    
+    checkMinLength(PASSWORD) ? matchReq(MIN_LENGTH) : notMatchReq(MIN_LENGTH);
+    checkMaxLength(PASSWORD) ? matchReq(MAX_LENGTH) : notMatchReq(MAX_LENGTH);
+    checkNumber(PASSWORD) ? matchReq(NUMBERS) : notMatchReq(NUMBERS);
+    hasLowercaseLetters(PASSWORD) ? matchReq(LOWER_CASE) : notMatchReq(LOWER_CASE);
+    hasUppercaseLetters(PASSWORD) ? matchReq(UPPER_CASE) : notMatchReq(UPPER_CASE);
+    hasWhiteSpaces(PASSWORD) ? notMatchReq(WHITE_SPACES) : matchReq(WHITE_SPACES);
+    hasSpecialCharacters(PASSWORD) ? matchReq(SPECIAL_CHARACTERS) : notMatchReq(SPECIAL_CHARACTERS);
+    hasRepetitiveCharacters(PASSWORD) ? notMatchReq(REPETITIVE_CHARACTERS) : notMatchReq(REPETITIVE_CHARACTERS);
+}
+
+function matchReq(req) {
+    req.style.color = "rgb(23, 197, 0)";
+    req.style.fontWeight = "normal";
+}
+
+function notMatchReq(req) {
+    req.style.color = "red";
+    req.style.fontWeight = "bold";
 }
 
 // Check min length
@@ -115,24 +113,33 @@ function hasSpecialCharacters(pass) {
 
 // Check three equal characters
 function hasRepetitiveCharacters(pass) {
-    let actualChar = "";
-    let equalLetterCounter = 0;
+    let equalLetterCounter = 1;
 
-    for (let i = 0; i < pass.length-1; i++) {
-        actualChar = pass[i];
-        if (equalLetterCounter < 3) {
-            for (let j = 1; j < pass.length; j++) {
-                if (equalLetterCounter < 3) {
-                    if (actualChar == pass[j]) {
-                        equalLetterCounter++;
-                    }
-                }
-                
+    for (let i = 0; i < pass.length - 1; i++) {
+        if (pass[i] == pass[i+1]) {
+            equalLetterCounter++;
+
+            if (equalLetterCounter == 3) {
+                return true;
             }
         }
         else {
-            return true;
+            equalLetterCounter = 1;
         }
     }
     return false;
+}
+
+function togglePasswordVisibility(password, eye_image) {
+    const OPENED_EYE_PATH = "images/open_eye.png";
+    const CLOSED_EYE_PATH = "images/closed_eye.png";
+
+    if (password.type == "password") {
+        password.type = "text";
+        eye_image.src = OPENED_EYE_PATH;
+    }
+    else {
+        password.type = "password";
+        eye_image.src = CLOSED_EYE_PATH;
+    }
 }
