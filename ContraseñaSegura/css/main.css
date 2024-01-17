@@ -11,8 +11,7 @@ html, body {
 }
 
 body {
-    height: 100%;
-    background: rgb(0,232,255);
+    min-height: 100svh;
     background: linear-gradient(37deg, rgba(0,232,255,1) 0%, rgba(41,153,230,1) 25%, rgb(59, 79, 166) 75%, rgb(68, 54, 255) 100%);
 }
 
@@ -30,10 +29,13 @@ section {
     min-width: 450px;
     max-width: 20%;
     min-height: 70%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(0,0,0,0.4);
+    backdrop-filter: blur(100px);
     border-radius: 13px;
     justify-content: center;
     align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 article {
@@ -43,27 +45,29 @@ article {
     align-items: center;
 }
 
-article img {
-    max-width: 25%;
-    margin-top: 20px;
-}
-
 article h2 {
     font-size: 2em;
     margin-top: 0px;
     margin-bottom: 0px;
-    border-bottom: 1px solid rgb(0, 162, 255);
-    color: rgb(0, 140, 255);
+    border-bottom: 3px solid rgb(0, 217, 255);
+    color: rgb(0, 204, 255);
+    filter: brightness(150%);
+}
+
+article img {
+    max-width: 25%;
+    margin-top: 20px;
+    filter: brightness(150%);
 }
 
 #password_container {
-    width: 65%;
-    border-radius: 4px;
-    padding: 5px 10px;
-    border: 2px solid rgb(0, 162, 255);
+    width: 67%;
+    border-radius: 2px;
+    padding: 7px 13px;
     margin-top: 25px;
     align-items: center;
     justify-content: space-between;
+    background-color: white;
 }
 
 #password {
@@ -72,11 +76,18 @@ article h2 {
     border: none;
     outline: none;
     padding: 0px;
+    background: transparent;
+    color: black;
+}
+
+#password::placeholder {
+    color: black;
+    opacity: 60%;
 }
 
 #password_container img {
     max-width: 8.5%;
-    opacity: 50%;
+    opacity: 100%;
     cursor: pointer;
     margin-top: 0px;
 }
@@ -96,6 +107,8 @@ article h2 {
     list-style: numbers;
     padding-left: 0px;
     line-height: 23px;
+    color: white;
+    font-size: 1.1em;
 }
 
 #requisitos li {
@@ -103,16 +116,21 @@ article h2 {
 }
 
 #check_button {
-    padding: 10px 50px;
+    margin-top: 10px;
+    padding: 8px 40px;
     font-size: 1.5em;
-    border-radius: 25px;
-    background: rgb(0,232,255);
+    border-radius: 30px;
     background: linear-gradient(45deg, rgba(0,232,255,1) 0%, rgba(41,153,230,1) 25%, 75%, rgb(0, 12, 182) 100%);
     border: none;
     color: white;
     font-weight: bold;
+    letter-spacing: 0.15em;
+    transition: 0.3s ease;
 }
 
 #check_button:hover {
     cursor: pointer;
+    transform: scale(1.15);
+    backface-visibility: hidden;
+    letter-spacing: 0.25em;
 }

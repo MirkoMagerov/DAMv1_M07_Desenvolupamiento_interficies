@@ -25,7 +25,7 @@ function checkPassword(PASSWORD_INPUT) {
     hasUppercaseLetters(PASSWORD) ? matchReq(UPPER_CASE) : notMatchReq(UPPER_CASE);
     hasWhiteSpaces(PASSWORD) ? notMatchReq(WHITE_SPACES) : matchReq(WHITE_SPACES);
     hasSpecialCharacters(PASSWORD) ? matchReq(SPECIAL_CHARACTERS) : notMatchReq(SPECIAL_CHARACTERS);
-    hasRepetitiveCharacters(PASSWORD) ? notMatchReq(REPETITIVE_CHARACTERS) : notMatchReq(REPETITIVE_CHARACTERS);
+    hasRepetitiveCharacters(PASSWORD) ? notMatchReq(REPETITIVE_CHARACTERS) : matchReq(REPETITIVE_CHARACTERS);
 }
 
 function matchReq(req) {
@@ -113,18 +113,9 @@ function hasSpecialCharacters(pass) {
 
 // Check three equal characters
 function hasRepetitiveCharacters(pass) {
-    let equalLetterCounter = 1;
-
-    for (let i = 0; i < pass.length - 1; i++) {
-        if (pass[i] == pass[i+1]) {
-            equalLetterCounter++;
-
-            if (equalLetterCounter == 3) {
-                return true;
-            }
-        }
-        else {
-            equalLetterCounter = 1;
+    for (let i = 0; i < pass.length - 2; i++) {
+        if (pass[i] == pass[i+1] && pass[i+1] == pass[i+2]) {
+            return true;
         }
     }
     return false;
