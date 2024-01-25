@@ -4,12 +4,8 @@ function init() {
 
     let userColors, result;
 
-    // do {
-    //     userColors = getUserCombination(COLORES);
-
-    // } while(!validUserCombination(COLORES, userColors));
-
     userColors = getUserCombination(COLORES);
+
     result = checkUserCombination(MASTER, userColors);
 
     console.log("Master = " + MASTER);
@@ -29,29 +25,18 @@ function createMaster(COLORES) {
     return MASTER;
 }
 
-function getUserCombination(COLORES) {
+function getUserCombination() {
     let userPrompt = prompt("Escribe los cuatro colores separados por comas en minúscula.").trim().replace(/ /g, "").toLowerCase();
     let userColors = userPrompt.split(",");
 
     return userColors;  
 }
 
-function validUserCombination(COLORES, userColors) {
-    for (let i = 0; i < userColors.length; i++) {
-        for (let j = 0; j < COLORES.length; j++) {
-            if (userColors[i] != COLORES[j]) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
 function checkUserCombination(MASTER, userColors) {
-    let result = ["","","",""];
+    let result = [];
 
-    for (let i = 0; i < result.length; i++) {
-        if (MASTER[i] == userColors[i]) result[i] = "negro";
+    for (let i = 0; i < MASTER.length; i++) {
+        if (MASTER[i] == userColors[i]) result.push("negro");
         else if (MASTER.includes(userColors[i])) {
             result[i] = "blanco";
         }
