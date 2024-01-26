@@ -6,30 +6,46 @@ const GREY = "grey";
 const WHITE = "white";
 const BLACK = "black";
 
-
 //Declaración de variables globales.
-const master = [];
-const userCombi = [];
-var intento = 0;
-var aciertos = 0;
+let master = [];
+let userCombi = [];
+let intento = 0;
+let aciertos = 0;
 
 function init() {
-    //1. Genera el código random del master
+    const RESULT_SECTION = document.querySelector("#Result")
+
+    master = createMaster(COLORS);
 
     //2. Crea todas las filas según el número de intentos.
 }
 
+function createMaster(COLORES) {
+    const MASTER_LENGTH = 4;
+    let MASTER = [];
 
+    for (let i = 0; i < MASTER_LENGTH; i++) {
+        let position = Math.round(Math.random() * 7);
+        MASTER[i] = COLORES[position];
+    }
 
-/* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha
-introducido el usuario.
-Informamos al usuario del resultado y del número de intentos que lleva*/
-function Comprobar() {
+    return MASTER;
+}
+
+/* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha introducido el usuario. Informamos al usuario del resultado y del número de intentos que lleva*/
+function Comprobar(userColor, MASTER) {
+    
 }
 
 /** Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
 function añadeColor(color) {
-   
+    const INPUT_ZONE = document.querySelector("#combiText");
+    let colors = INPUT_ZONE.value.split(",");
+
+    if (colors.length < 4) INPUT_ZONE.value += color + ", "; 
+    else INPUT_ZONE.value += color;
+
+    console.log(INPUT_ZONE.value);
 }
 
 
