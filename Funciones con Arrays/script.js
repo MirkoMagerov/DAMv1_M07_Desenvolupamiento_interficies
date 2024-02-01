@@ -1,9 +1,11 @@
 function init() {
     // COPIAR Y PEGAR LOS COMENTARIOS DE CADA FUNCIÓN PARA COMPROBAR SI FUNCIONA
-    // Sample arrays
+    // Arrays para usar en las funciones
     const stringArray = ["apple", "banana", "cherry"];
     const numberArray = [2, 4, 6, 8, 10];
-    const mixedArray = ["apple", 3, "cherry", 6];
+    const arrayWithT = ["tarta", 3, "cherry", 6];
+    const arrayWithZ = ["zoo", "zumba", "bobo"];
+    const arrayWithP = ["apple", "pineapple", "pato"];
 
     // EX 1
     console.log("EX 1: ", equalTypeArray(stringArray));
@@ -24,7 +26,7 @@ function init() {
     console.log("EX 6: ", multiplyArray(numberArray, 3));
 
     // EX 7
-    console.log("EX 7: ", onlyZFilter(mixedArray));
+    console.log("EX 7: ", onlyZFilter(arrayWithZ));
 
     // EX 8
     console.log("EX 8: ", onlyFiveMultiples(numberArray));
@@ -33,10 +35,10 @@ function init() {
     console.log("EX 9: ", firstLengthFive(stringArray));
 
     // EX 10
-    console.log("EX 10: ", lastWithP(mixedArray));
+    console.log("EX 10: ", lastWithP(arrayWithP));
 
     // EX 11
-    console.log("EX 11: ", firstWithT(stringArray));
+    console.log("EX 11: ", firstWithT(arrayWithT));
 
     // EX 12
     console.log("EX 12: ", lastEven(numberArray));
@@ -131,8 +133,8 @@ function onlyZFilter(array) {
     for (let element of array) {
         if (typeof element === "string") {
             minusElement = element.toLowerCase();
+            if (minusElement.startsWith('z')) newArr.push(element);
         }
-        if (element.startsWith('z')) newArr.push(element);
     }
 
     return newArr;
@@ -199,7 +201,7 @@ function lastEven(array) {
 function addAll(array) {
     let sum = 0;
     for (let num of array) {
-        sum += num;
+        if (typeof num === 'number') sum += num;
     }
     return sum;
 }
