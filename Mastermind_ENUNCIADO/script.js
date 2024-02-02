@@ -6,21 +6,23 @@ const COLORS = ['white', 'blue', 'green', 'violet', 'yellow', 'red', 'orange', '
 const GREY = "grey";
 const WHITE = "white";
 const BLACK = "black";
+const ROW_USER_POSITION = 0;
+const ROW_CERCLE_RESULT_POSITION = 1;
+const MAX_TRIES = 10;
 
 //Declaración de variables globales.
 let master = [];
 let userCombi = [];
-let intento = 0;
-let aciertos = 0;
+let intentoActual = 0;
 let colorsSelected = 0;
 
 function init() {
-    const RESULT_SECTION = document.querySelector("#Result")
-
+    // 1. Crear master
     master = createMaster(COLORS);
     console.log(master);
 
-    //2. Crea todas las filas según el número de intentos.
+    // 2. Imprimir todas las filas según los intentos máximos
+    printResultRows(ROW_RESULT, MAX_TRIES);
 }
 
 function createMaster(COLORES) {
@@ -36,46 +38,94 @@ function createMaster(COLORES) {
 }
 
 /* Procedimiento que se ejecuta cada vez que el usuario selecciona un color, hasta el número máximo de colores permitidos en la combinación. */
-function añadeColor(color) {
+function añadeColor(color, intento) {
     const INPUT_ZONE = document.querySelector("#combiText");
     let colors = INPUT_ZONE.value.split("-");
 
     if (colorsSelected < MAX_COLORS_SELECTED) {
+        userCombi.push(color);
         if (colors.length == 4) INPUT_ZONE.value += color;
         else if (colors.length < 5) INPUT_ZONE.value += color + "-";
+        let indvColor = colorizeActualColor(intento, colorsSelected);
+        indvColor.style.backgroundColor = color;
         colorsSelected++;
     }
-
-    console.log(INPUT_ZONE.value);
 }
 
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha introducido el usuario. Informamos al usuario del resultado y del número de intentos que lleva*/
-function Comprobar(userCombi) {
-    const INPUT_ZONE = document.querySelector("#combiText");
-    let colors = INPUT_ZONE.value.split("-");
-    console.log(colors);
-
-    if (correctNumberOfColors()) {
-        saveUserCombination(userCombi);
-        console.log(userCombi);
+function comprobar(userColors, MASTER) {
+    if (correctNumberOfColors(userColors)) {
+        let copyMaster = MASTER;
+        for (let i = 0; i < copyMaster.length; i++) {
+            let resultColor = correctColorPosition(copyMaster, userColors, i);
+            console.log(resultColor);
+            switch (resultColor) {
+                case "black":
+                    copyMaster[i] = "";
+                    break;
+            }
+        }
+        console.log(copyMaster);
+7
+        const INPUT_ZONE = document.querySelector("#combiText");
+        INPUT_ZONE.value = "";
+        intentoActual += 1;
+        colorsSelected = 0;
+        userCombi = [];
     }
 }
 
-function saveUserCombination(userCombi) {
-    const INPUT_ZONE = document.querySelector("#combiText");
-    let colors = INPUT_ZONE.value.split("-");
-
-    for (let color of colors) {
-        userCombi.push(color);
-    }
-}
-
-function correctNumberOfColors() {
-    const INPUT_ZONE = document.querySelector("#combiText");
-    let colors = INPUT_ZONE.value.split("-");
-
+function correctNumberOfColors(colors) {    
     if (colors.length == 4) return true;
     return false;
+}
+
+function printResultRows(ROW_RESULT, TRIES) {
+    for (let i = 0; i < TRIES; i++) {
+        let RESULT = getResultSection();
+        RESULT.innerHTML += ROW_RESULT;
+    }
+}
+
+function getResultSection() {
+    const RESULT_SECTION = document.querySelector("#Result");
+    return RESULT_SECTION;
+}
+
+function getAllResultRows() {
+    let result = getResultSection();
+    let rows = result.querySelectorAll(".rowResult");
+    return rows;
+}
+
+function getActualRow(intento) {
+    let rows = getAllResultRows();
+    return rows[intento];
+}
+
+function getActualColor(intento) {
+    let actRow = getActualRow(intento);
+    let divsInRow = actRow.querySelectorAll("div");
+    let colorsDiv = divsInRow[0];
+    return colorsDiv;
+}
+
+function colorizeActualColor(intento, numeroColor) {
+    let actColor = getActualColor(intento);
+    let userColorRow = actColor.querySelectorAll("div");
+    let majorDivIndvColor = userColorRow[numeroColor * 2];
+    let indvColorDiv = majorDivIndvColor.querySelector("div");
+    return indvColorDiv;
+}
+
+function correctColorPosition(master, userCombiColor, index) {
+    if (master[index] == userCombiColor[index]) return "black";
+    else if (master.includes(userCombiColor[index])) return "white";
+    return "grey";
+}
+
+function colorizeResultColor() {
+
 }
 
 /* Template con el código HTML que corresponde a cada fila de juego/intento. */
@@ -93,7 +143,7 @@ const ROW_RESULT = `<div class="rowResult w100 flex wrap">
        <div class="w25">
            <div class="celUserCombi flex"></div>
        </div>
-    </div>alis/Mastermind_CODIGO
+    </div>
     <div class="rowCercleResult w25 flex wrap center">
        <div class="w40 h40">
             <div class="cercleResult flex"></div>

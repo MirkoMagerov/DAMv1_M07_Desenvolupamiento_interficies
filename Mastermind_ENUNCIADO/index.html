@@ -34,33 +34,33 @@
                 <section id="selección" class="w100 flex wrap center">
                     <div class="w100 flex wrap center">
                         <div class="w8">
-                            <div id="white" class="w100 cel flex" onclick="añadeColor('white')"></div>
+                            <div id="white" class="w100 cel flex" onclick="añadeColor('white', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="green" class="w100 cel flex" onclick="añadeColor('green')"></div>
+                            <div id="green" class="w100 cel flex" onclick="añadeColor('green', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="red" class="w100 cel flex" onclick="añadeColor('red')"></div>
+                            <div id="red" class="w100 cel flex" onclick="añadeColor('red', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="blue" class="w100 cel flex" onclick="añadeColor('blue')"></div>
+                            <div id="blue" class="w100 cel flex" onclick="añadeColor('blue', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="violet" class="w100 cel flex" onclick="añadeColor('violet')"></div>
+                            <div id="violet" class="w100 cel flex" onclick="añadeColor('violet', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="yellow" class="w100 cel flex" onclick="añadeColor('yellow')"></div>
+                            <div id="yellow" class="w100 cel flex" onclick="añadeColor('yellow', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="orange" class="w100 cel flex" onclick="añadeColor('orange')"></div>
+                            <div id="orange" class="w100 cel flex" onclick="añadeColor('orange', intentoActual)"></div>
                         </div>
                         <div class="w8">
-                            <div id="cyan" class="w100 cel flex" onclick="añadeColor('cyan')"></div>
+                            <div id="cyan" class="w100 cel flex" onclick="añadeColor('cyan', intentoActual)"></div>
                         </div>
                     </div>
                 </section>
                 <input disabled class="w90" type="text" id="combiText" name="combiText" value=""><br>
-                <button class="w90" id="check" onclick="Comprobar()">Comprobar</button>
+                <button class="w90" id="check" onclick="comprobar(userCombi,master)">Comprobar</button>
             </section>
 
             <section class="w100 info">
