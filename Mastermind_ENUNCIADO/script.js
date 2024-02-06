@@ -46,7 +46,7 @@ function añadeColor(color, intento) {
     const INPUT_ZONE = document.querySelector("#combiText");
     let colors = INPUT_ZONE.value.split("-");
 
-    if (colorsSelected < MAX_COLORS_SELECTED) {
+    if (colorsSelected < MAX_COLORS_SELECTED && !victory) {
         userCombi.push(color);
         if (colors.length == 4) INPUT_ZONE.value += color;
         else if (colors.length < 5) INPUT_ZONE.value += color + "-";
@@ -58,23 +58,25 @@ function añadeColor(color, intento) {
 
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha introducido el usuario. Informamos al usuario del resultado y del número de intentos que lleva*/
 function comprobar(userColors, MASTER) {
-    if (correctNumberOfColors(userColors)) {
-        let resultArray = [];
-        let copyMaster = MASTER;
-        for (let i = 0; i < copyMaster.length; i++) {
-            let resultColor = correctColorPosition(copyMaster, userColors, i);
-            if (resultColor == "black") revealMaster(i, userColors[i]);
-            resultArray.push(resultColor);
+    if (!victory) {
+        if (correctNumberOfColors(userColors) && !victory) {
+            let resultArray = [];
+            let copyMaster = MASTER;
+            for (let i = 0; i < copyMaster.length; i++) {
+                let resultColor = correctColorPosition(copyMaster, userColors, i);
+                if (resultColor == "black") revealMaster(i, userColors[i]);
+                resultArray.push(resultColor);
+            }
+    
+            if (!resultArray.includes("grey") && !resultArray.includes("white")) victory = true;
+    
+            printResult(resultArray, intentoActual);
+            resetVariables();
         }
-
-        if (!resultArray.includes("grey") && !resultArray.includes("white")) victory = true;
-
-        printResult(resultArray, intentoActual);
-        resetVariables();
+    
+        let userInfo = updateInfoSection(intentoActual, MAX_INTENTOS, victory);
+        pInfo.textContent = userInfo;
     }
-
-    let userInfo = updateInfoSection(intentoActual, MAX_INTENTOS, victory);
-    pInfo.textContent = userInfo;
 }
 
 function correctNumberOfColors(colors) {    
