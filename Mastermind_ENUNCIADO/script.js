@@ -11,12 +11,16 @@ const ROW_CERCLE_RESULT_POSITION = 1;
 const MAX_TRIES = 10;
 
 //Declaración de variables globales.
+let victory = false;
+let pInfo;
 let master = [];
 let userCombi = [];
 let intentoActual = 0;
 let colorsSelected = 0;
 
 function init() {
+    pInfo = document.querySelector('#info');
+
     // 1. Crear master
     master = createMaster(COLORS);
     console.log(master);
@@ -42,7 +46,7 @@ function añadeColor(color, intento) {
     const INPUT_ZONE = document.querySelector("#combiText");
     let colors = INPUT_ZONE.value.split("-");
 
-    if (colorsSelected < MAX_COLORS_SELECTED) {
+    if (colorsSelected < MAX_COLORS_SELECTED && !victory) {
         userCombi.push(color);
         if (colors.length == 4) INPUT_ZONE.value += color;
         else if (colors.length < 5) INPUT_ZONE.value += color + "-";
@@ -54,24 +58,24 @@ function añadeColor(color, intento) {
 
 /* Llamaremos a esta función desde el botón HTML de la página para comprobar la propuesta de combinación que nos ha introducido el usuario. Informamos al usuario del resultado y del número de intentos que lleva*/
 function comprobar(userColors, MASTER) {
-    if (correctNumberOfColors(userColors)) {
-        let copyMaster = MASTER;
-        for (let i = 0; i < copyMaster.length; i++) {
-            let resultColor = correctColorPosition(copyMaster, userColors, i);
-            console.log(resultColor);
-            switch (resultColor) {
-                case "black":
-                    copyMaster[i] = "";
-                    break;
+    if (!victory) {
+        if (correctNumberOfColors(userColors) && !victory) {
+            let resultArray = [];
+            let copyMaster = MASTER;
+            for (let i = 0; i < copyMaster.length; i++) {
+                let resultColor = correctColorPosition(copyMaster, userColors, i);
+                if (resultColor == "black") revealMaster(i, userColors[i]);
+                resultArray.push(resultColor);
             }
+    
+            if (!resultArray.includes("grey") && !resultArray.includes("white")) victory = true;
+    
+            printResult(resultArray, intentoActual);
+            resetVariables();
         }
-        console.log(copyMaster);
-7
-        const INPUT_ZONE = document.querySelector("#combiText");
-        INPUT_ZONE.value = "";
-        intentoActual += 1;
-        colorsSelected = 0;
-        userCombi = [];
+    
+        let userInfo = updateInfoSection(intentoActual, MAX_INTENTOS, victory);
+        pInfo.textContent = userInfo;
     }
 }
 
@@ -94,27 +98,40 @@ function getResultSection() {
 
 function getAllResultRows() {
     let result = getResultSection();
-    let rows = result.querySelectorAll(".rowResult");
-    return rows;
+    let row = result.querySelectorAll(".rowResult");
+    return row;
 }
 
 function getActualRow(intento) {
-    let rows = getAllResultRows();
-    return rows[intento];
+    let row = getAllResultRows();
+    return row[intento];
 }
 
 function getActualColor(intento) {
     let actRow = getActualRow(intento);
-    let divsInRow = actRow.querySelectorAll("div");
-    let colorsDiv = divsInRow[0];
-    return colorsDiv;
+    let divsInRow = actRow.querySelector(".rowUserCombi");
+    return divsInRow;
+}
+
+function getActualResults(intento) {
+    let actRow = getActualRow(intento);
+    let divsInRow = actRow.querySelector(".rowCercleResult");
+    return divsInRow;
+}
+
+function printResult(resultArray, intento) {
+    let cercleResultRow = getActualResults(intento);
+    let cercleResultDivs = cercleResultRow.querySelectorAll('.cercleResult');
+    for (let i = 0; i < cercleResultDivs.length; i++) {
+        console.log(cercleResultDivs[i]);
+        cercleResultDivs[i].style.backgroundColor = resultArray[i];
+    }
 }
 
 function colorizeActualColor(intento, numeroColor) {
     let actColor = getActualColor(intento);
-    let userColorRow = actColor.querySelectorAll("div");
-    let majorDivIndvColor = userColorRow[numeroColor * 2];
-    let indvColorDiv = majorDivIndvColor.querySelector("div");
+    let userColorRow = actColor.querySelectorAll(".celUserCombi");
+    let indvColorDiv = userColorRow[numeroColor];
     return indvColorDiv;
 }
 
@@ -124,8 +141,27 @@ function correctColorPosition(master, userCombiColor, index) {
     return "grey";
 }
 
-function colorizeResultColor() {
+function revealMaster(index, color) {
+    let masterRow = document.querySelector('#master');
+    let masterDivs = masterRow.querySelectorAll('.cel');
+    console.log(masterDivs);
+    masterDivs[index].style.backgroundColor = color;
+}
 
+function resetVariables() {
+    const INPUT_ZONE = document.querySelector("#combiText");
+    INPUT_ZONE.value = "";
+    intentoActual += 1;
+    colorsSelected = 0;
+    userCombi = [];
+}
+
+function updateInfoSection(intento, maxIntentos, victory) {
+    if (victory) return "¡Has acertado todos los colores! ¡Enhorabuena!";
+
+    if (intento < maxIntentos) return "Intento número " + (intento + 1) + ". ¡Suerte!";
+
+    return "Te has quedado sin intentos. ¡La próxima vez te saldrá mejor!";
 }
 
 /* Template con el código HTML que corresponde a cada fila de juego/intento. */
