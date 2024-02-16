@@ -1,5 +1,10 @@
-import { Libro } from "./llibre.js";
+// import Figura from './figura.js';
+// import Triangle from './triangle.js';
+// import Rectangle from './rectangle.js';
+// import Quadrat from './quadrat.js';
 
 function init() {
-    console.log(new Libro("El Quijote", "Cervantes").mostrar());
+
 }
+
+window.onload = init;
