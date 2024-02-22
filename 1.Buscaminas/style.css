@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-size: 4vh;
+}
+
+#tablero {
+    border: 1px solid black; /* Borde del tablero */
+    display: grid;
+    width: 50vw;
+    height: 50vh;
+}
+
+.celda-tablero {
+    border: 1px solid black;
+}
+
+.bomb {
+    background-color: red;
+}
