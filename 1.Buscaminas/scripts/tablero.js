@@ -65,22 +65,4 @@ class Tablero {
             }
         }
     }
-
-    printBoard(board, cellStyle) {
-        board.innerHTML = "";
-
-        board.style.gridTemplateColumns = `repeat(${this.columnas}, 1fr)`;
-        board.style.gridTemplateRows = `repeat(${this.filas}, 1fr)`;
-
-        for (let i = 0; i < this.filas; i++) {
-            for (let j = 0; j < this.columnas; j++) {
-                const cell = document.createElement("div");
-                cell.style = cellStyle;
-                cell.id = i * 10 + j;
-                if (this.matrizCasillas[i][j].bomb)
-                    cell.classList.add("bomb");
-                board.appendChild(cell);
-            }
-        }
-    }
 }

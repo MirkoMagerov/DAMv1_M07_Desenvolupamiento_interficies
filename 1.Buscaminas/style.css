@@ -16,18 +16,59 @@ h2 {
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 15px;
-    font-size: 4vh;
+    font-size: clamp(1.5vw, 4vw, 4vh);
+}
+
+.settings {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 7px 0;
+}
+
+.slider-separator {
+    width: 100%;
+    text-align: center;
+}
+
+.slider-separator:first-of-type {
+    margin-bottom: 10px;
+}
+
+.slider h3 {
+    font-size: clamp(1vw, 2.7vw, 2.7vh);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.slider h4 {
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    padding-bottom: 5px;
+    font-size: clamp(0.5vw, 1.5vw, 1.5vh);
+}
+
+.slider p {
+    min-width: 20px;
+    margin-left: 15px;
 }
 
 #tablero {
-    border: 1px solid black; /* Borde del tablero */
+    border: 1px solid black;
     display: grid;
-    width: 50vw;
-    height: 50vh;
+    width: min(50vw, 50vh); 
+    height: min(50vw, 50vh);
 }
 
 .celda-tablero {
     border: 1px solid black;
+    background-color: lightgray;
+    box-shadow: 0 0 4px 1px black;
 }
 
 .bomb {

@@ -11,7 +11,19 @@
 </head>
 <body onload="init()">
     <main>
-        <h2>Buscaminas</h2>
+        <h2>Minesweeper</h2>
+        <div class="settings">
+            <h3>Settings</h3>
+            <h4>Size of the board</h4>
+            <div class="slider-separator">
+                <input type="range" min="10" max="30" value="20" oninput="rangeValue.innerText = `${this.value} x ${this.value}`">
+                <p id="rangeValue">20 x 20</p>
+            </div>
+            <div class="slider-separator">
+                <p>Cantidad de bombas: </p>
+                <input type="number" min="3" max="10" value="5">
+            </div>
+        </div>
         <section id="tablero">
         </section>
     </main>
