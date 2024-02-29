@@ -27,4 +27,25 @@ function init() {
     button2.addEventListener('dblclick', () => {
         alert('Doble click');
     });
+
+    button2.addEventListener('mousemove', function(e) {
+        console.log(e.clientX, e.clientY);
+    })
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            alert('Enter');
+        }
+    })
+
+    let div = document.querySelector('#div-click-me');
+    div.addEventListener('click', () => {
+        console.log('Div clickado');
+    })
+
+    let button_click_me = document.querySelector('#button-click-me');
+    button_click_me.addEventListener('click', (event) => {
+        console.log('Button clickado');
+        event.stopPropagation();
+    })
 }
