@@ -1,30 +1,21 @@
 class Tablero {
-    #filas;
-    #columnas;
+    #size;
     #matrizCasillas;
     #bombs;
     
-    constructor(dimensiones, quantityBombs) {
-        this.filas = dimensiones[0];
-        this.columnas = dimensiones[1];
+    constructor(size, quantityBombs) {
+        this.size = size;
         this.matrizCasillas = this.generateBoard();
         this.bombs = quantityBombs;
         this.generateBombs();
     }
 
-    get filas() {
-        return this.#filas;
-    }
-    set filas(filas) {
-        this.#filas = filas;
+    get size() {
+        return this.#size;
     }
 
-    get columnas() {
-        return this.#columnas;
-    }
-
-    set columnas(columnas) {
-        this.#columnas = columnas;
+    set size(size) {
+        this.#size = size;
     }
 
     get matrizCasillas() {
@@ -44,9 +35,9 @@ class Tablero {
 
     generateBoard() {
         const board = [];
-        for (let i = 0; i < this.filas; i++) {
+        for (let i = 0; i < this.size; i++) {
             const row = [];
-            for (let j = 0; j < this.columnas; j++) {
+            for (let j = 0; j < this.size; j++) {
                 row.push(new Casilla(i, j));
             }
             board.push(row);
@@ -57,11 +48,34 @@ class Tablero {
     generateBombs() {
         let bombsGenerated = 0;
         while (bombsGenerated < this.bombs) {
-            let x = Math.floor(Math.random() * this.filas);
-            let y = Math.floor(Math.random() * this.columnas);
+            let x = Math.floor(Math.random() * this.size);
+            let y = Math.floor(Math.random() * this.size);
             if (!this.matrizCasillas[x][y].bomb) {
                 this.matrizCasillas[x][y].bomb = true;
                 bombsGenerated++;
+            }
+        }
+    }
+
+    detectBombs() {
+        let bombsCalculated = 0;
+        while (bombsCalculated < this.bombs) {
+            for (let i = 0; i < this.size; i++) {
+                for (let j = 0; j < this.size; j++) {
+                    if (this.matrizCasillas[i][j].bomb) {
+                        for (let k = i - 1; k <= i + 1; k++) {
+                            for (let l = j - 1; l <= j + 1; l++) {
+                                if (k >= 0 && k < this.size && l >= 0 && l < this.size) {
+                                    if (!this.matrizCasillas[k][l].bomb) {
+                                        this.matrizCasillas[k][l].bombsAround++;
+                                    }
+                                }
+                            }
+                        }
+
+                        bombsCalculated++;
+                    }
+                }
             }
         }
     }

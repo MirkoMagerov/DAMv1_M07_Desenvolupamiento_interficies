@@ -4,7 +4,7 @@ class Casilla {
     #bombsAround;
     #flag;
     #bomb;
-    #revealed;
+    #revealed; 
 
     constructor(x, y) {
         this.x = x;

@@ -1,41 +1,82 @@
 function init() {
     const SECTION_TABLERO = document.getElementById("tablero");
     const CELL_STYLE = "celda-tablero";
+    const GENERATE_BUTTON = document.querySelector('#generate-board-button');
 
-    let dimensiones = getDimensions();
-    let bombsQuantity = getBombsQuantity();
-    
-    let tablero = new Tablero(dimensiones, bombsQuantity);
+    let tablero;
 
-    printBoard(SECTION_TABLERO, CELL_STYLE, tablero);
+    GENERATE_BUTTON.addEventListener('click', () => {
+        let dimensions = getDimensions();
+        let bombsQuant = getBombs();
 
-    function getDimensions() {
-        let filas = prompt("Introduce las filas del tablero: ");
-        let columas = prompt("Introduce las columnas del tablero: ");
-        let dimensiones = [filas, columas];
-        return dimensiones;
-    }
+        if (verifyBombsQuant(dimensions, bombsQuant)) {
+            tablero = new Tablero(getDimensions(), getBombs());
+            tablero.detectBombs();
 
-    function getBombsQuantity() {
-        let quantity = prompt("Introduce la cantidad de bombas: ");
-        return quantity;
-    }
+            printBoard(SECTION_TABLERO, CELL_STYLE, tablero);
+        }
 
-    function printBoard(boardSection, cellStyle, tablero) {
-        boardSection.innerHTML = "";
+        else {
+            alert("Que haces bobo, no puedes poner mas bombas que casillas.");
+        }
+    });
+}
 
-        boardSection.style.gridTemplateColumns = `repeat(${tablero.columnas}, 1fr)`;
-        boardSection.style.gridTemplateRows = `repeat(${tablero.filas}, 1fr)`;
+// ------------------------------ CONSEGUIR AJUSTES INCIALES ------------------------------
 
-        for (let i = 0; i < tablero.filas; i++) {
-            for (let j = 0; j < tablero.columnas; j++) {
-                const cell = document.createElement("div");
-                cell.classList.add(cellStyle);
-                cell.id = i * 10 + j;
-                if (tablero.matrizCasillas[i][j].bomb)
-                    cell.classList.add("bomb");
-                    boardSection.appendChild(cell);
+function getDimensions() {
+    let slider = document.querySelector('#dimensionsSlider');
+    return slider.value;
+}
+
+function getBombs() {
+    let bombsQuantity = document.querySelector('#bombsQuantity');
+    return bombsQuantity.value;
+}
+
+function verifyBombsQuant(dimensions, bombs) {
+    return dimensions * dimensions >= bombs;
+}
+
+// ------------------------------ MOSTRAR GRAFICAMENTE ------------------------------
+
+function printBoard(boardSection, cellStyle, tablero) {
+    boardSection.innerHTML = "";
+
+    boardSection.style.gridTemplateColumns = `repeat(${tablero.size}, 1fr)`;
+    boardSection.style.gridTemplateRows = `repeat(${tablero.size}, 1fr)`;
+
+    for (let i = 0; i < tablero.size; i++) {
+        for (let j = 0; j < tablero.size; j++) {
+            const cell = document.createElement("div");
+            cell.classList.add(cellStyle);
+            cell.id = i * 10 + j;
+
+            const currentCell = tablero.matrizCasillas[i][j];
+
+            if (currentCell.bomb) {
+                cell.classList.add("bomb");
             }
+            else {
+                // cell.textContent = addAroundBombs(tablero, cell); -- Mostrar cuantas bombas hay alrededor de la celda
+            }
+            cell.addEventListener('click', () => toggleFlag(currentCell, cell));
+            boardSection.appendChild(cell);
         }
     }
+}
+
+function addAroundBombs(tablero, cell) {
+    let id = cell.id;
+    let x = Math.floor(id / 10);
+    let y = id % 10;
+    let bombsAround = tablero.matrizCasillas[x][y].bombsAround;
+    return bombsAround;
+}
+
+// ------------------------------ FUNCIONALIDADES JUEGO ------------------------------
+function toggleFlag(cell, cellElement) {
+    if (cell.revealed) return;
+    cell.flag = !cell.flag;
+    cellElement.style.backgroundColor = cell.flag ? "green" : "lightgray";
 }
