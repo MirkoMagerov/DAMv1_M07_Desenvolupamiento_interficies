@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 16px;
+}
+
+h2 {
+    margin: 10px 10px;
+}
+
+form {
+    margin: 10px 10px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+input:invalid {
+    border: 2px dashed red;
+}
+
+input:valid {
+    border: 2px solid green;
+}

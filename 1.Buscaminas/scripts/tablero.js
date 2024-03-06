@@ -38,7 +38,8 @@ class Tablero {
         for (let i = 0; i < this.size; i++) {
             const row = [];
             for (let j = 0; j < this.size; j++) {
-                row.push(new Casilla(i, j));
+                let casilla = new Casilla(i, j);
+                row.push(casilla);
             }
             board.push(row);
         }
@@ -77,6 +78,18 @@ class Tablero {
                     }
                 }
             }
+        }
+    }
+
+    clickedCell(cell) {
+        if (cell.bomb) {
+            console.log("true");
+            return true;
+        }
+        else {
+            cell.revealed = true;
+            console.log("false");
+            return false;
         }
     }
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Configuración</h2>
+    <form>
+        <h4>Ejercicio 1</h4>
+
+        <div class="form-container">
+            <label>Nombre</label>
+            <input type="text" name="nombre" placeholder="Nombre">
+        </div>
+        
+        <div class="form-container">
+            <label>Apellido</label>
+            <input type="text" name="apellido" placeholder="Apellido">
+        </div>
+
+        <div class="form-container">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Email">
+        </div>
+
+        <div class="form-container">
+            <label>Contraseña</label>
+            <input type="password" name="password" placeholder="Contraseña">
+        </div>
+
+        <h4>Ejercicio 2</h4>
+
+        <div class="form-container">
+            <label>Codigo Postal</label>
+            <input type="text" name="codigoPostal" placeholder="Codigo Postal" required minlength="5" pattern="08[0-9]{3}">
+        </div>
+
+        <div class="form-container">
+            <label>NIF</label>
+            <input type="text" name="nif" placeholder="NIF" required minlength="10" pattern="[0-9]{8}[-][A-Za-z]{1}">
+        </div>
+        
+        <div class="form-container">
+            <label>Telefono</label>
+            <input type="text" name="telefono" placeholder="Telefono" required minlength="11" maxlength="12" pattern="([6-9][0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}|[6-9][0-9]{2} [0-9]{3} [0-9]{3})">
+        </div>
+
+        <input type="submit" value="Guardar">
+    </form>
+</body>
+</html>

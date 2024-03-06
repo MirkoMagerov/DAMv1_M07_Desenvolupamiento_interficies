@@ -58,9 +58,9 @@ function printBoard(boardSection, cellStyle, tablero) {
                 cell.classList.add("bomb");
             }
             else {
-                // cell.textContent = addAroundBombs(tablero, cell); -- Mostrar cuantas bombas hay alrededor de la celda
+                // cell.textContent = addAroundBombs(tablero, cell); ---- Mostrar cuantas bombas hay alrededor de la celda
             }
-            cell.addEventListener('click', () => toggleFlag(currentCell, cell));
+            cell.addEventListener("click", () => tablero.clickedCell(currentCell));
             boardSection.appendChild(cell);
         }
     }
@@ -75,6 +75,7 @@ function addAroundBombs(tablero, cell) {
 }
 
 // ------------------------------ FUNCIONALIDADES JUEGO ------------------------------
+
 function toggleFlag(cell, cellElement) {
     if (cell.revealed) return;
     cell.flag = !cell.flag;
