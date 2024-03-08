@@ -81,15 +81,23 @@ class Tablero {
         }
     }
 
-    clickedCell(cell) {
-        if (cell.bomb) {
-            console.log("true");
-            return true;
+    revealAround(cell) {
+        let x = cell.x;
+        let y = cell.y;
+        if (cell.bombsAround === 0) {
+            for (let i = x - 1; i <= x + 1; i++) {
+                for (let j = y - 1; j <= y + 1; j++) {
+                    if (i >= 0 && i < this.size && j >= 0 && j < this.size) {
+                        if (!this.matrizCasillas[i][j].revealed && !this.matrizCasillas[i][j].bomb && !this.matrizCasillas[i][j].flag) {
+                            this.matrizCasillas[i][j].revealed = true;
+                            this.revealAround(this.matrizCasillas[i][j]);
+                        }
+                    }
+                }
+            }
         }
         else {
-            cell.revealed = true;
-            console.log("false");
-            return false;
+            this.matrizCasillas[x][y].revealed = true;
         }
     }
 }

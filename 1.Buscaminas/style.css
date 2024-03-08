@@ -8,15 +8,54 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+main {
+    width: 70%;
+    display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
 }
 
-main {
-    width: 50%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+.not-revealed {
+    background-color: rgb(190, 190, 190);
+}
+
+.revealed {
+    background-color: green;
+}
+
+.bomb {
+    background-color: red;
+}
+
+.light-green { 
+	background: #83e4b5; 
+}
+
+.blue-green { 
+	background: #2f7950; 
+}
+
+.green { 
+	background: #3ec8ac; 
+}
+
+.purple { 
+	background: #6e60a0; 
+}
+
+.one-around {
+    color: rgb(0, 105, 243);
+}
+
+.two-around {
+    color: green;
 }
 
 h2 {
@@ -27,7 +66,8 @@ h2 {
 }
 
 .settings {
-    width: 90%;
+    width: 60%;
+    margin: 0 20%;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -69,26 +109,25 @@ h2 {
 #tablero {
     border: 2px solid black;
     display: grid;
-    width: min(50vw, 50vh); 
-    height: min(50vw, 50vh);
+    width: min(75vw, 75vh);
+    height: min(75vw, 75vh);
     background-color: white;
+    margin-bottom: 50px;
 }
 
 .celda-tablero {
     border: 1px solid black;
     box-shadow: 0 0 5px 2.5px black;
-    font-size: 0.7em;
-    background-color: lightgray;
-}
-
-.bomb {
-    background-color: red;
+    font-size: clamp(1vw, 2vw, 2.25vh);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #generate-board-button {
     margin-top: 15px;
-    width: 25%;
-    font-size: 1.2em;
+    width: 35%;
+    font-size: clamp(0.7vw, 1.75vw, 1.75vh);
     font-weight: bold;
     background-color: rgb(73, 66, 66);
     color: rgb(231, 231, 231);
@@ -96,22 +135,6 @@ h2 {
 
 #generate-board-button:hover {
     cursor: pointer;
-}
-
-.light-green { 
-	background: #83e4b5; 
-}
-
-.blue-green { 
-	background: #2f7950; 
-}
-
-.green { 
-	background: #3ec8ac; 
-}
-
-.purple { 
-	background: #6e60a0; 
 }
 
 form {
@@ -146,4 +169,12 @@ form fieldset legend {
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    align-self: flex-end;
+    justify-self: start;
+    width: 100%;
 }

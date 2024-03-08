@@ -1,6 +1,5 @@
 function init() {
     const SECTION_TABLERO = document.getElementById("tablero");
-    const CELL_STYLE = "celda-tablero";
     const GENERATE_BUTTON = document.querySelector('#generate-board-button');
 
     let tablero;
@@ -13,7 +12,7 @@ function init() {
             tablero = new Tablero(getDimensions(), getBombs());
             tablero.detectBombs();
 
-            printBoard(SECTION_TABLERO, CELL_STYLE, tablero);
+            printBoard(SECTION_TABLERO, tablero);
         }
 
         else {
@@ -40,7 +39,7 @@ function verifyBombsQuant(dimensions, bombs) {
 
 // ------------------------------ MOSTRAR GRAFICAMENTE ------------------------------
 
-function printBoard(boardSection, cellStyle, tablero) {
+function printBoard(boardSection, tablero) {
     boardSection.innerHTML = "";
 
     boardSection.style.gridTemplateColumns = `repeat(${tablero.size}, 1fr)`;
@@ -49,27 +48,42 @@ function printBoard(boardSection, cellStyle, tablero) {
     for (let i = 0; i < tablero.size; i++) {
         for (let j = 0; j < tablero.size; j++) {
             const cell = document.createElement("div");
-            cell.classList.add(cellStyle);
+            cell.classList.add('not-revealed');
+            cell.classList.add('celda-tablero');
             cell.id = i * 10 + j;
 
             const currentCell = tablero.matrizCasillas[i][j];
 
-            if (currentCell.bomb) {
-                cell.classList.add("bomb");
-            }
-            else {
-                // cell.textContent = addAroundBombs(tablero, cell); ---- Mostrar cuantas bombas hay alrededor de la celda
-            }
-            cell.addEventListener("click", () => tablero.clickedCell(currentCell));
+            cell.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                toggleFlag(currentCell, cell);
+            });
+
+            // if (currentCell.bomb) {
+            //     cell.textContent = "💣";
+            // }
+            // else {
+            //     cell.textContent = currentCell.bombsAround;
+            // }
+
+            cell.addEventListener("click", () =>  {
+                if (currentCell.bomb) {
+                    alert("Perdiste");
+                }
+                else if (!currentCell.flag) {
+                    tablero.revealAround(currentCell);
+                    updateCellsStyle(tablero);
+                }
+            });
+
             boardSection.appendChild(cell);
         }
     }
 }
 
 function addAroundBombs(tablero, cell) {
-    let id = cell.id;
-    let x = Math.floor(id / 10);
-    let y = id % 10;
+    let x = cell.x;
+    let y = cell.y;
     let bombsAround = tablero.matrizCasillas[x][y].bombsAround;
     return bombsAround;
 }
@@ -79,5 +93,23 @@ function addAroundBombs(tablero, cell) {
 function toggleFlag(cell, cellElement) {
     if (cell.revealed) return;
     cell.flag = !cell.flag;
-    cellElement.style.backgroundColor = cell.flag ? "green" : "lightgray";
+    cellElement.textContent = cell.flag ? "🚩" : "";
+}
+
+function updateCellsStyle(tablero) {
+    for (let i = 0; i < tablero.size; i++) {
+        for (let j = 0; j < tablero.size; j++) {
+            const currentCellUpdated = tablero.matrizCasillas[i][j];
+            const cellElement = document.getElementById(i * 10 + j);
+
+            if (currentCellUpdated.revealed && !currentCellUpdated.flag && !currentCellUpdated.bomb) {
+                cellElement.classList.add('revealed');
+                cellElement.classList.remove('not-revealed');
+
+                if (currentCellUpdated.bombsAround > 0) {
+                    cellElement.textContent = currentCellUpdated.bombsAround;
+                }
+            }
+        }
+    }
 }
