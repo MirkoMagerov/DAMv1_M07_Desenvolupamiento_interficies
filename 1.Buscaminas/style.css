@@ -8,73 +8,36 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
-    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
-    padding-bottom: 20px;
 }
 
 main {
-    width: 70%;
+    width: 80%;
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.not-revealed {
-    background-color: rgb(190, 190, 190);
-}
-
-.revealed {
-    background-color: green;
-}
-
-.bomb {
-    background-color: red;
-}
-
-.light-green { 
-	background: #83e4b5; 
-}
-
-.blue-green { 
-	background: #2f7950; 
-}
-
-.green { 
-	background: #3ec8ac; 
-}
-
-.purple { 
-	background: #6e60a0; 
-}
-
-.one-around {
-    color: rgb(0, 105, 243);
-}
-
-.two-around {
-    color: green;
+    margin-top: 20px;
 }
 
 h2 {
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 15px;
-    font-size: clamp(1.5vw, 4vw, 4vh);
+    font-size: clamp(3rem, 4vw, 4vh);
+    color: rgb(123, 0, 255);
+    border-bottom: 3px solid rgb(0, 0, 0);
 }
 
 .settings {
-    width: 60%;
-    margin: 0 20%;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    margin-bottom: 20px;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 7px 0;
+    border-radius: 10px;
+    padding: 20px 0;
     color: white;
 }
 
@@ -91,13 +54,14 @@ h2 {
     font-size: clamp(1vw, 2.7vw, 2.7vh);
     text-transform: uppercase;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .settings h4 {
     width: 100%;
     text-align: center;
     font-style: italic;
-    padding-bottom: 5px;
+    margin-bottom: 10px;
     font-size: clamp(0.7vw, 1.75vw, 1.75vh);
 }
 
@@ -107,10 +71,8 @@ h2 {
 }
 
 #tablero {
-    border: 2px solid black;
-    display: grid;
-    width: min(75vw, 75vh);
-    height: min(75vw, 75vh);
+    display: flex;
+    flex-flow: row wrap;
     background-color: white;
     margin-bottom: 50px;
 }
@@ -126,15 +88,18 @@ h2 {
 
 #generate-board-button {
     margin-top: 15px;
-    width: 35%;
     font-size: clamp(0.7vw, 1.75vw, 1.75vh);
     font-weight: bold;
-    background-color: rgb(73, 66, 66);
+    background-color: rgb(49, 44, 44);
     color: rgb(231, 231, 231);
+    border: none;
+    padding: 10px ;
+    border-radius: 5px;
 }
 
 #generate-board-button:hover {
     cursor: pointer;
+    background-color: #5f5757;
 }
 
 form {
@@ -171,10 +136,38 @@ form fieldset legend {
     margin-bottom: 20px;
 }
 
-footer {
-    background-color: black;
-    color: white;
-    align-self: flex-end;
-    justify-self: start;
-    width: 100%;
+.not-revealed {
+    background-color: rgb(190, 190, 190);
+}
+
+.revealed {
+    background-color: green;
+}
+
+.bomb {
+    background-color: red;
+}
+
+.light-green { 
+	background: #83e4b5; 
+}
+
+.blue-green { 
+	background: #2f7950; 
+}
+
+.green { 
+	background: #3ec8ac; 
+}
+
+.purple { 
+	background: #6e60a0; 
+}
+
+.one-around {
+    color: rgb(0, 105, 243);
+}
+
+.two-around {
+    color: green;
 }

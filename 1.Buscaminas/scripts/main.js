@@ -1,24 +1,7 @@
 function init() {
-    const SECTION_TABLERO = document.getElementById("tablero");
     const GENERATE_BUTTON = document.querySelector('#generate-board-button');
 
-    let tablero;
-
-    GENERATE_BUTTON.addEventListener('click', () => {
-        let dimensions = getDimensions();
-        let bombsQuant = getBombs();
-
-        if (verifyBombsQuant(dimensions, bombsQuant)) {
-            tablero = new Tablero(getDimensions(), getBombs());
-            tablero.detectBombs();
-
-            printBoard(SECTION_TABLERO, tablero);
-        }
-
-        else {
-            alert("Que haces bobo, no puedes poner mas bombas que casillas.");
-        }
-    });
+    GENERATE_BUTTON.addEventListener('click', () => generateBoard());
 }
 
 // ------------------------------ CONSEGUIR AJUSTES INCIALES ------------------------------
@@ -37,20 +20,57 @@ function verifyBombsQuant(dimensions, bombs) {
     return dimensions * dimensions >= bombs;
 }
 
+function generateBoard() {
+    const SECTION_TABLERO = document.getElementById("tablero");
+    const dimensions = getDimensions();
+    const bombsQuant = getBombs();
+
+    if (!verifyBombsQuant(dimensions, bombsQuant)) {
+        alert("No puedes poner más bombas que casillas.");
+        return;
+    }
+
+    const tablero = new Tablero(dimensions, bombsQuant);
+    tablero.detectBombs();
+
+    // Calcular el tamaño del tablero basado en la cantidad de casillas
+    const boardSize = calculateBoardSize(tablero.size);
+
+    // Establecer el tamaño del tablero dinámicamente
+    SECTION_TABLERO.style.width = `${boardSize}px`;
+    SECTION_TABLERO.style.height = `${boardSize}px`;
+
+    createBoard(SECTION_TABLERO, tablero);
+}
+
+function calculateBoardSize(boardSize) {
+    const cellSize = 7; // Tamaño base de cada celda en píxeles
+    const padding = 2.5; // Padding adicional para el borde
+    const totalPadding = (boardSize + 1) * padding;
+    const totalCellSize = boardSize * cellSize;
+    const boardSizeWithPadding = totalCellSize + totalPadding;
+
+    return boardSizeWithPadding;
+}
+
 // ------------------------------ MOSTRAR GRAFICAMENTE ------------------------------
 
-function printBoard(boardSection, tablero) {
+function createBoard(boardSection, tablero) {
     boardSection.innerHTML = "";
 
-    boardSection.style.gridTemplateColumns = `repeat(${tablero.size}, 1fr)`;
-    boardSection.style.gridTemplateRows = `repeat(${tablero.size}, 1fr)`;
+    const CELL_SIZE = 100 / tablero.size;
 
     for (let i = 0; i < tablero.size; i++) {
         for (let j = 0; j < tablero.size; j++) {
             const cell = document.createElement("div");
+
             cell.classList.add('not-revealed');
             cell.classList.add('celda-tablero');
+
             cell.id = i * 10 + j;
+
+            cell.style.width = `${CELL_SIZE}%`;
+            cell.style.height = `${CELL_SIZE}%`;
 
             const currentCell = tablero.matrizCasillas[i][j];
 
@@ -58,13 +78,6 @@ function printBoard(boardSection, tablero) {
                 e.preventDefault();
                 toggleFlag(currentCell, cell);
             });
-
-            // if (currentCell.bomb) {
-            //     cell.textContent = "💣";
-            // }
-            // else {
-            //     cell.textContent = currentCell.bombsAround;
-            // }
 
             cell.addEventListener("click", () =>  {
                 if (currentCell.bomb) {
