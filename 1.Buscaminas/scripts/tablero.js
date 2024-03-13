@@ -84,6 +84,7 @@ class Tablero {
     revealAround(cell) {
         let x = cell.x;
         let y = cell.y;
+        
         if (cell.bombsAround === 0) {
             for (let i = x - 1; i <= x + 1; i++) {
                 for (let j = y - 1; j <= y + 1; j++) {
