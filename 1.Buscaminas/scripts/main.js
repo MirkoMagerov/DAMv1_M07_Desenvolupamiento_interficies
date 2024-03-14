@@ -1,6 +1,21 @@
 function init() {
-    const GENERATE_BUTTON = document.querySelector('#generate-board-button');
+    openForm();
+    //play();
+}
 
+function openForm() {
+    const width = 700;
+    const height = 630;
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+    
+    const features = `width=${width}px,height=${height}px,left=${left}px,top=${top}px`;
+    
+    window.open("../login.html", "Login", features);
+}
+
+function play() {
+    const GENERATE_BUTTON = document.querySelector('#generate-board-button');
     GENERATE_BUTTON.addEventListener('click', () => generateBoard());
 }
 
@@ -12,9 +27,12 @@ function getDimensions() {
 }
 
 function getBombs() {
-    let bombsQuantity = document.querySelector('#bombsQuantity').value;
+    let bombsQuantity = document.querySelector('#bombsQuantity');
+    if (bombsQuantity.value < bombsQuantity.min) {
+        bombsQuantity.value = bombsQuantity.min;
+    }
 
-    return bombsQuantity;
+    return bombsQuantity.value;
 }
 
 function verifyBombsQuant(dimensions, bombs) {
@@ -33,7 +51,6 @@ function generateBoard() {
 
     const tablero = new Tablero(dimensions, bombsQuant);
     tablero.detectBombs();
-
     const boardSize = calculateBoardSize(tablero.size);
 
     SECTION_TABLERO.style.width = `${boardSize}px`;
@@ -43,8 +60,8 @@ function generateBoard() {
 }
 
 function calculateBoardSize(boardSize) {
-    const visualCellSize = 7; // Tamaño base de cada celda en píxeles
-    const padding = 2.5; // Padding adicional para el borde
+    const visualCellSize = 7;
+    const padding = 3; // Padding adicional para el borde
     const totalPadding = (boardSize + 1) * padding;
     const totalvisualCellSize = boardSize * visualCellSize;
     const boardSizeWithPadding = totalvisualCellSize + totalPadding;
@@ -71,14 +88,18 @@ function createBoard(boardSection, tablero) {
 
             visualCell.addEventListener("click", () =>  {
                 if (boardCell.bomb) {
+                    showBombs(tablero);
                     alert("Perdiste");
                 }
                 else if (!boardCell.flag) {
                     tablero.revealAround(boardCell);
                     updatevisualCellsStyle(tablero);
-                }
-                if (checkWin(tablero)) {
-                    alert("Ganaste");
+
+                    if (checkWin(tablero)) {
+
+                        alert("Ganaste");
+                        showBombs(tablero);
+                    }
                 }
             });
 
@@ -92,6 +113,7 @@ function createBoard(boardSection, tablero) {
 function createVisualCell(i,j, VISUALCELL_SIZE) {
     const visualCell = document.createElement("div");
     visualCell.classList.add('not-revealed');
+    visualCell.classList.add('celda-tablero');
     visualCell.id = `visualCell-${i}-${j}`;
     visualCell.style.width = `${VISUALCELL_SIZE}%`;
     visualCell.style.height = `${VISUALCELL_SIZE}%`;
@@ -109,6 +131,10 @@ function colorizeNumberOfBombs(visualCell, boardCell) {
         case 3:
             visualCell.classList.add('three-around');
             break;
+        case 4:
+        case 5:
+        case 6:
+        case 7:
         case 8:
             visualCell.classList.add('four-or-more-around');
             break;
@@ -116,26 +142,6 @@ function colorizeNumberOfBombs(visualCell, boardCell) {
 }
 
 // ------------------------------ FUNCIONALIDADES JUEGO ------------------------------
-
-// function assignListenersToCells(visualCell, boardCell, tablero) {
-//     visualCell.addEventListener("contextmenu", (e) => {
-//         e.preventDefault();
-//         toggleFlag(boardCell, visualCell);
-//     });
-
-//     visualCell.addEventListener("click", () =>  {
-//         if (boardCell.bomb) {
-//             alert("Perdiste");
-//         }
-//         else if (!boardCell.flag) {
-//             tablero.revealAround(boardCell);
-//             updatevisualCellsStyle(tablero);
-//         }
-//         if (checkWin(tablero)) {
-//             alert("Ganaste");
-//         }
-//     });
-// }
 
 function toggleFlag(boardCell, visualCell) {
     if (boardCell.revealed) return;
@@ -162,15 +168,26 @@ function updatevisualCellsStyle(tablero) {
 }
 
 function checkWin(tablero) {
-    let revealedvisualCells = 0;
-
+    let revealedCells = 0;
     for (let i = 0; i < tablero.size; i++) {
         for (let j = 0; j < tablero.size; j++) {
             if (tablero.matrizCasillas[i][j].revealed) {
-                revealedvisualCells++;
+                revealedCells++;
             }
         }
     }
+    return revealedCells === tablero.size * tablero.size - tablero.bombs;
+}
 
-    return tablero.size * tablero.size - tablero.bombs === revealedvisualCells;
+function showBombs(tablero) {
+    for(let i = 0; i < tablero.size; i++) {
+        for(let j = 0; j < tablero.size; j++) {
+            const visualCell = document.getElementById(`visualCell-${i}-${j}`);
+            const boardCell = tablero.matrizCasillas[i][j];
+
+            if (boardCell.bomb) {
+                visualCell.textContent = "💣";
+            }
+        }
+    }
 }

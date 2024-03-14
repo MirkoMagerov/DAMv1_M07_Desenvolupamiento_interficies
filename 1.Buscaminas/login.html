@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minesweeper</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="images/Minesweeper_2005.png">
 </head>
@@ -12,16 +12,37 @@
     <main>
         <form>
             <fieldset class="purple">
-                <legend><h2>Login</h2></legend>
+                <legend><h2>Sign Up</h2></legend>
+                <div id="form-inputs-container">
+                    <div class="input-container">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
 
-                <div class="input-container">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-
-                <div class="input-container">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
+                    <div class="input-container">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+    
+                    <div class="input-container">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+    
+                    <div class="input-container">
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" name="surname" required>
+                    </div>
+    
+                    <div class="input-container">
+                        <label for="birthdate">Birth Date</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+    
+                    <div class="input-container">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
                 </div>
             </fieldset>
         </form>

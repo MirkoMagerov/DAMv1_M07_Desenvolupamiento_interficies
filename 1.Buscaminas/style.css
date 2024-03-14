@@ -47,7 +47,7 @@ h2 {
 }
 
 .slider-separator:first-of-type {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .settings h3 {
@@ -70,6 +70,11 @@ h2 {
     margin-left: 15px;
 }
 
+#bombsQuantity:focus {
+    outline: none;
+    border: #ffee00;
+}
+
 #tablero {
     display: flex;
     flex-flow: row wrap;
@@ -79,13 +84,25 @@ h2 {
 }
 
 .celda-tablero {
-    font-size: clamp(1vw, 2vw, 2.25vh);
     display: flex;
     justify-content: center;
     align-items: center;
     border: 5px solid;
     border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+}
+
+.not-revealed {
+    background-color: rgb(209, 209, 209);
+    border: 6px solid;
+    border-color: #fcf4f4 #a8a599 #a8a599 #fffceb;
     cursor: pointer;
+}
+
+.revealed {
+    font-size: clamp(2vw, 3vw, 1vh);
+    background-color: rgb(209, 209, 209);
+    border: 1px solid rgb(155, 155, 155);
+    font-weight: bold;
 }
 
 #generate-board-button {
@@ -102,61 +119,6 @@ h2 {
 #generate-board-button:hover {
     cursor: pointer;
     background-color: #5f5757;
-}
-
-form {
-    font-size: 1.5em;
-    color:white;
-    font-weight: bold;
-    width: 30vw;
-}
-
-form fieldset {
-    border: none;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: space-between;
-}
-
-form fieldset legend {
-    background-color: #6e60a0;
-    border-radius: 5px;
-    padding: 5px;
-    margin-bottom: 15px;
-    width: 50%;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 1.5em;
-}
-
-.input-container {
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.not-revealed {
-    background-color: rgb(209, 209, 209);
-    border: 6px solid;
-    border-color: #fcf4f4 #a8a599 #a8a599 #fffceb;
-    cursor: pointer;
-}
-
-.revealed {
-    font-size: clamp(2vw, 3vw, 1vh);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(209, 209, 209);
-    border: 1px solid rgb(155, 155, 155);
-    font-weight: bold;
-}
-
-.bomb {
-    background-color: red;
 }
 
 .light-green { 
@@ -189,4 +151,64 @@ form fieldset legend {
 
 .four-or-more-around {
     color: rgb(139, 0, 194);
+}
+
+form {
+    font-size: 1.5em;
+    color:white;
+    font-weight: bold;
+    width: 450px;
+}
+
+form fieldset legend {
+    background-color: #6e60a0;
+    border-radius: 5px;
+    padding: 5px;
+    width: 70%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+
+form h2 {
+    color: white;
+    border: inherit;
+    margin-bottom: 10px;
+}
+
+form fieldset {
+    border: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+#form-inputs-container {
+    width: 50%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.input-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 15px;
+}
+
+.input-container input {
+    border: none;
+    background-color: inherit;
+    color:white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5px 2.5px;
+    font-weight: bold;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #ffee00;
 }

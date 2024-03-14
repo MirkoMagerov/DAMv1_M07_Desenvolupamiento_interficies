@@ -56,8 +56,4 @@ class Casilla {
     set revealed(revealed) {
         this.#revealed = revealed;
     }
-
-    isBomb() {
-        return this.bomb;
-    }
 }
