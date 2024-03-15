@@ -12,25 +12,9 @@
     <link rel="icon" type="image/x-icon" href="images/Minesweeper_2005.png">
 </head>
 
-<body class="light-green" onload="init()">
+<body class="green" onload="init()">
     <main>
         <h2>💣 Minesweeper 💣</h2>
-        <div class="settings purple">
-            <h3>Settings</h3>
-            <h4>Size of the board</h4>
-
-            <div class="slider-separator">
-                <input type="range" min="5" max="25" value="15" id="dimensionsSlider" oninput="rangeValue.innerText = `${this.value} x ${this.value}`">
-                <p id="rangeValue">15 x 15</p>
-            </div>
-
-            <div class="slider-separator">
-                <h4>Cantidad de bombas: </h4>
-                <input type="number" min="2" value="25" id="bombsQuantity">
-            </div>
-
-            <button id="generate-board-button">GENERATE</button>
-        </div>
         <section id="tablero">
         </section>
     </main>

@@ -4,8 +4,8 @@ function init() {
 }
 
 function openForm() {
-    const width = 700;
-    const height = 630;
+    const width = 750;
+    const height = 900;
     const left = (window.screen.width - width) / 2;
     const top = (window.screen.height - height) / 2;
     
@@ -15,8 +15,9 @@ function openForm() {
 }
 
 function play() {
-    const GENERATE_BUTTON = document.querySelector('#generate-board-button');
-    GENERATE_BUTTON.addEventListener('click', () => generateBoard());
+    // const GENERATE_BUTTON = document.querySelector('#generate-board-button');
+    // GENERATE_BUTTON.addEventListener('click', () => generateBoard());
+    generateBoard();
 }
 
 // ------------------------------ CONSEGUIR AJUSTES INCIALES ------------------------------

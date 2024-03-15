@@ -1,3 +1,35 @@
+.light-green { 
+	background: #3ec8ac; 
+}
+
+.blue-green { 
+	background: #2f7950; 
+}
+
+.green {
+    background: #3fffa2bb;  
+}
+
+.purple { 
+	background: #6e60a0; 
+}
+
+.one-around {
+    color: rgb(0, 105, 243);
+}
+
+.two-around {
+    color: green;
+}
+
+.three-around {
+    color: red;
+}
+
+.four-or-more-around {
+    color: rgb(139, 0, 194);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -39,35 +71,6 @@ h2 {
     border-radius: 10px;
     padding: 20px 0;
     color: white;
-}
-
-.slider-separator {
-    width: 100%;
-    text-align: center;
-}
-
-.slider-separator:first-of-type {
-    margin-bottom: 20px;
-}
-
-.settings h3 {
-    font-size: clamp(1vw, 2.7vw, 2.7vh);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.settings h4 {
-    width: 100%;
-    text-align: center;
-    font-style: italic;
-    margin-bottom: 10px;
-    font-size: clamp(0.7vw, 1.75vw, 1.75vh);
-}
-
-.slider p {
-    min-width: 20px;
-    margin-left: 15px;
 }
 
 #bombsQuantity:focus {
@@ -121,38 +124,6 @@ h2 {
     background-color: #5f5757;
 }
 
-.light-green { 
-	background: #83e4b5; 
-}
-
-.blue-green { 
-	background: #2f7950; 
-}
-
-.green { 
-	background: #3ec8ac; 
-}
-
-.purple { 
-	background: #6e60a0; 
-}
-
-.one-around {
-    color: rgb(0, 105, 243);
-}
-
-.two-around {
-    color: green;
-}
-
-.three-around {
-    color: red;
-}
-
-.four-or-more-around {
-    color: rgb(139, 0, 194);
-}
-
 form {
     font-size: 1.5em;
     color:white;
@@ -174,6 +145,7 @@ form h2 {
     color: white;
     border: inherit;
     margin-bottom: 10px;
+    padding-top: 10px;
 }
 
 form fieldset {
@@ -182,6 +154,7 @@ form fieldset {
     flex-flow: row wrap;
     justify-content: center;
     border-radius: 10px;
+    padding-bottom: 20px;
 }
 
 #form-inputs-container {
@@ -194,7 +167,7 @@ form fieldset {
 .input-container {
     width: 100%;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column-reverse wrap;
     margin-bottom: 15px;
 }
 
@@ -211,4 +184,36 @@ form fieldset {
 .input-container input:focus {
     outline: none;
     border-color: #ffee00;
+}
+
+.input-container input:focus + label {
+    color: #ffee00;
+}
+
+.input-container .submit-button {
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0px;
+    font-size: .9em;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.submit-button:hover {
+    background-color: #5f5757;
+    color: #ffee00;
+    border-color: #ffee00;
+}
+
+.input-container p {
+    align-self: center;
+}
+
+.centered-label {
+    align-self: center;
 }
