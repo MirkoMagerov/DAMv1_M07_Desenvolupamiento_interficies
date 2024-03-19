@@ -56,26 +56,11 @@ main {
 h2 {
     text-align: center;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     font-size: clamp(3rem, 4vw, 4vh);
     color: rgb(123, 0, 255);
-    border-bottom: 3px solid rgb(0, 0, 0);
-}
-
-.settings {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    border-radius: 10px;
-    padding: 20px 0;
-    color: white;
-}
-
-#bombsQuantity:focus {
-    outline: none;
-    border: #ffee00;
+    border-bottom: 4px solid rgb(123, 0, 255);
 }
 
 #tablero {

@@ -6,7 +6,6 @@ function init() {
         checkAll();
         if (form.checkValidity()) {
             storeValues(form);
-            window.opener.play();
             window.close();
         }
     })
@@ -63,7 +62,6 @@ function setCookie (name, value) {
 
 function storeValues (form) {
     setCookie("username", form.username.value);
-    setCookie("password", form.password.value);
     setCookie("birthdate", form.birthdate.value);
     setCookie("email", form.email.value);
     setCookie("size", document.querySelector('#dimensionsSlider').value);

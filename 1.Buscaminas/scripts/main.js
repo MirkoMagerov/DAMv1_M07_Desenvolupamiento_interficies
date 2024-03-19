@@ -1,4 +1,5 @@
 function init() {
+
     openForm();
 }
 
@@ -10,38 +11,56 @@ function openForm() {
     
     const features = `width=${width}px,height=${height}px,left=${left}px,top=${top}px`;
     
-    window.open("../login.html", "Login", features);
+    if (!document.cookie) {
+        const loginWindow = window.open("../login.html", "Login", features);
+
+        loginWindow.addEventListener('beforeunload', () => {
+            play();
+        });
+    }
+    else {
+        play()
+    }
 }
 
 function play() {
-    generateBoard();
+    let size = getDimensions();
+    let bombs = getBombs();
+    generateBoard(size, bombs);
 }
 
 // ------------------------------ CONSEGUIR AJUSTES INCIALES ------------------------------
 
 function getDimensions() {
-    return document.cookie.split(';').find(cookie => cookie.includes('size'));
+    const cookie = document.cookie.split(';').find(cookie => cookie.includes('size'));
+    if (cookie) {
+        const cookieArray = cookie.split('=');
+        return parseInt(cookieArray[cookieArray.length -1].trim());
+    }
+    return null;
 }
 
 function getBombs() {
-    return document.cookie.split(';').find(cookie => cookie.includes('bombs'));
+    const cookie = document.cookie.split(';').find(cookie => cookie.includes('bombs'));
+    if (cookie) {
+        const cookieArray = cookie.split('=');
+        return parseInt(cookieArray[cookieArray.length -1].trim());
+    }
 }
 
 function verifyBombsQuant(dimensions, bombs) {
     return dimensions * dimensions >= bombs;
 }
 
-function generateBoard() {
+function generateBoard(size, bombsQuant) {
     const SECTION_TABLERO = document.getElementById("tablero");
-    const dimensions = getDimensions();
-    const bombsQuant = getBombs();
 
-    if (!verifyBombsQuant(dimensions, bombsQuant)) {
+    if (!verifyBombsQuant(size, bombsQuant)) {
         alert("No puedes poner más bombas que casillas.");
         return;
     }
 
-    const tablero = new Tablero(dimensions, bombsQuant);
+    const tablero = new Tablero(size, bombsQuant);
     tablero.detectBombs();
     const boardSize = calculateBoardSize(tablero.size);
 
@@ -52,8 +71,8 @@ function generateBoard() {
 }
 
 function calculateBoardSize(boardSize) {
-    const visualCellSize = 7;
-    const padding = 3; // Padding adicional para el borde
+    const visualCellSize = 10;
+    const padding = 5; // Padding adicional para el borde
     const totalPadding = (boardSize + 1) * padding;
     const totalvisualCellSize = boardSize * visualCellSize;
     const boardSizeWithPadding = totalvisualCellSize + totalPadding;
