@@ -1,6 +1,5 @@
 function init() {
     openForm();
-    //play();
 }
 
 function openForm() {
@@ -15,25 +14,17 @@ function openForm() {
 }
 
 function play() {
-    // const GENERATE_BUTTON = document.querySelector('#generate-board-button');
-    // GENERATE_BUTTON.addEventListener('click', () => generateBoard());
     generateBoard();
 }
 
 // ------------------------------ CONSEGUIR AJUSTES INCIALES ------------------------------
 
 function getDimensions() {
-    let slider = document.querySelector('#dimensionsSlider');
-    return slider.value;
+    return document.cookie.split(';').find(cookie => cookie.includes('size'));
 }
 
 function getBombs() {
-    let bombsQuantity = document.querySelector('#bombsQuantity');
-    if (bombsQuantity.value < bombsQuantity.min) {
-        bombsQuantity.value = bombsQuantity.min;
-    }
-
-    return bombsQuantity.value;
+    return document.cookie.split(';').find(cookie => cookie.includes('bombs'));
 }
 
 function verifyBombsQuant(dimensions, bombs) {

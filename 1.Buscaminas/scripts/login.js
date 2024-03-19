@@ -5,7 +5,9 @@ function init() {
         e.preventDefault();
         checkAll();
         if (form.checkValidity()) {
-            
+            storeValues(form);
+            window.opener.play();
+            window.close();
         }
     })
 }
@@ -53,4 +55,17 @@ function checkAll() {
     checkUsername();
     checkAge();
     checkEmail();
+}
+
+function setCookie (name, value) {
+    document.cookie = name + "=" + value + ";path=/";
+}
+
+function storeValues (form) {
+    setCookie("username", form.username.value);
+    setCookie("password", form.password.value);
+    setCookie("birthdate", form.birthdate.value);
+    setCookie("email", form.email.value);
+    setCookie("size", document.querySelector('#dimensionsSlider').value);
+    setCookie("bombs", document.querySelector('#bombsQuantity').value);
 }
