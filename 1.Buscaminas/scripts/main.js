@@ -1,5 +1,4 @@
 function init() {
-
     openForm();
 }
 
@@ -56,7 +55,8 @@ function generateBoard(size, bombsQuant) {
     const SECTION_TABLERO = document.getElementById("tablero");
 
     if (!verifyBombsQuant(size, bombsQuant)) {
-        alert("No puedes poner más bombas que casillas.");
+        const status = document.querySelector('.status');
+        status.textContent = "No puedes poner más bombas que casillas.";
         return;
     }
 
@@ -71,7 +71,7 @@ function generateBoard(size, bombsQuant) {
 }
 
 function calculateBoardSize(boardSize) {
-    const visualCellSize = 10;
+    const visualCellSize = 25;
     const padding = 5; // Padding adicional para el borde
     const totalPadding = (boardSize + 1) * padding;
     const totalvisualCellSize = boardSize * visualCellSize;
@@ -98,17 +98,20 @@ function createBoard(boardSection, tablero) {
             });
 
             visualCell.addEventListener("click", () =>  {
-                if (boardCell.bomb) {
+                if (boardCell.bomb && !boardCell.flag) {
                     showBombs(tablero);
-                    alert("Perdiste");
+                    const status = document.querySelector('.status');
+                    status.textContent = "HAS PERDIDO";
+                    status.style.color = "red";
                 }
                 else if (!boardCell.flag) {
                     tablero.revealAround(boardCell);
                     updatevisualCellsStyle(tablero);
 
                     if (checkWin(tablero)) {
-
-                        alert("Ganaste");
+                        const status = document.querySelector('.status');
+                        status.textContent = "HAS GANADO";
+                        status.style.color = "blue";
                         showBombs(tablero);
                     }
                 }
